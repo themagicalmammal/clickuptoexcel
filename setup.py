@@ -25,12 +25,12 @@ setup(
     include_package_data=True,
     install_requires=[],
     project_urls={
-    # "Website": "https://github.com/themagicalmammal/clickuptoexcel",
-    # "Source code": "https://github.com/themagicalmammal/clickuptoexcel",
-    "Documentation":
-    "https://github.com/themagicalmammal/clickuptoexcel/blob/main/README.md",
-    "Bug tracker":
-    "https://github.com/themagicalmammal/clickuptoexcel/issues",
+        # "Website": "https://github.com/themagicalmammal/clickuptoexcel",
+        # "Source code": "https://github.com/themagicalmammal/clickuptoexcel",
+        "Documentation":
+        "https://github.com/themagicalmammal/clickuptoexcel/blob/main/README.md",
+        "Bug tracker":
+        "https://github.com/themagicalmammal/clickuptoexcel/issues",
     },
     keywords=["python", "ClickUp", "Excel", "pandas"],
     classifiers=[
