@@ -10,7 +10,13 @@ from clickuptoexcel import Migrate2Excel
 
 location = 'C:/Data/'
 attributes = None
-helper = Migrate2Excel(location=location, clickup_api_token="""<YOUR_API_KEY>""", attribute_values=attributes)
+api_key = """<YOUR_API_KEY>"""
+helper = Migrate2Excel(location=location, clickup_api_token=, attribute_values=attributes)
+"""
+:param string location: specify where you would want the database to be replicated
+:param list attributes: list of attributes that you want in your excel files
+:param string api_key: your Clickup API Token
+"""
 helper.start()
 ```
 
