@@ -5,14 +5,15 @@ Written By: Dipan Nanda
 Date: December 2022
 """
 from concurrent.futures import ThreadPoolExecutor
-from excel_write import write_in_excel
 from os import environ, getenv, mkdir
-from pandas import DataFrame, concat
-from requests import get
 from sys import exit
 from time import perf_counter
-from urllib3 import disable_warnings
+
+from excel_write import write_in_excel
+from pandas import DataFrame, concat
+from requests import get
 from tqdm import tqdm
+from urllib3 import disable_warnings
 
 disable_warnings()
 attributes = []
@@ -32,8 +33,11 @@ class Request(object):
         :param dict headers: Contains headers like type and key for the url
         """
         if headers is None:
-            headers = {'Content-Type': 'application/json', 'Authorization': getenv('clickup_api_token')}
-        self.url = 'https://api.clickup.com/api/v2/' + url
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": getenv("clickup_api_token"),
+            }
+        self.url = "https://api.clickup.com/api/v2/" + url
         self.headers = headers
 
     def fetch_response(self, verify=False, params=None):
@@ -45,7 +49,10 @@ class Request(object):
         """
         if params is None:
             params = {}
-        request = get(url=self.url, headers=self.headers, verify=verify, params=params)
+        request = get(url=self.url,
+                      headers=self.headers,
+                      verify=verify,
+                      params=params)
         return request.json()
 
     @staticmethod
@@ -63,7 +70,8 @@ class Request(object):
             responses.set_index(responses.columns[0], inplace=True)
             return responses
         if error_string is None:
-            error_string = 'Attributes provided return a empty ' + fetch_string + ' dataframe.'
+            error_string = ("Attributes provided return a empty " +
+                            fetch_string + " dataframe.")
         if len(response.get(fetch_string)):
             for i in response.get(fetch_string):
                 responses = append_row(response=responses, record=i)
@@ -84,13 +92,14 @@ class Teams(Request):
         """
         Constructor for Teams class
         """
-        Request.__init__(self, url='team')
+        Request.__init__(self, url="team")
 
     def fetch_all_teams(self):
         """
         Fetching all Workspace(s) data from Token
         """
-        return self.valid_response(self.fetch_response(), 'teams', 'Clickup API Token is invalid.')
+        return self.valid_response(self.fetch_response(), "teams",
+                                   "Clickup API Token is invalid.")
 
 
 class Spaces(Request):
@@ -105,13 +114,13 @@ class Spaces(Request):
         :param str team_id: Team id required for fetching space(s)
         """
         self.team_id = team_id
-        Request.__init__(self, url=f'team/{self.team_id}/space')
+        Request.__init__(self, url=f"team/{self.team_id}/space")
 
     def fetch_spaces(self):
         """
         Fetching all Space(s) data from Workspace
         """
-        return self.valid_response(self.fetch_response(), 'spaces')
+        return self.valid_response(self.fetch_response(), "spaces")
 
 
 class Goals(Request):
@@ -126,13 +135,13 @@ class Goals(Request):
         :param str team_id: Team id required for fetching space(s)
         """
         self.team_id = team_id
-        Request.__init__(self, url=f'team/{self.team_id}/goal')
+        Request.__init__(self, url=f"team/{self.team_id}/goal")
 
     def fetch_goals(self):
         """
         Fetching all Goal(s) data from Teams
         """
-        return self.valid_response(self.fetch_response(), 'goals')
+        return self.valid_response(self.fetch_response(), "goals")
 
 
 class Tags(Request):
@@ -147,13 +156,13 @@ class Tags(Request):
         :param str space_id: Space id required for fetching tag(s)
         """
         self.space_id = space_id
-        Request.__init__(self, url=f'space/{self.space_id}/tag')
+        Request.__init__(self, url=f"space/{self.space_id}/tag")
 
     def fetch_tags(self):
         """
         Fetching all Tag(s) data from Spaces
         """
-        return self.valid_response(self.fetch_response(), 'tags')
+        return self.valid_response(self.fetch_response(), "tags")
 
 
 class Folders(Request):
@@ -168,7 +177,7 @@ class Folders(Request):
         :param str space_id: Space id required for fetching folder(s)
         """
         self.space_id = space_id
-        Request.__init__(self, url=f'space/{self.space_id}/folder')
+        Request.__init__(self, url=f"space/{self.space_id}/folder")
 
     def fetch_folders(self):
         """
@@ -176,7 +185,7 @@ class Folders(Request):
         """
         query = {"archived": "false"}
         response = self.fetch_response(params=query)
-        return self.valid_response(response, 'folders')
+        return self.valid_response(response, "folders")
 
 
 class FolderLessLists(Request):
@@ -199,7 +208,7 @@ class FolderLessLists(Request):
         """
         query = {"archived": "false"}
         response = self.fetch_response(params=query)
-        return self.valid_response(response, 'lists')
+        return self.valid_response(response, "lists")
 
 
 class Lists(Request):
@@ -214,7 +223,7 @@ class Lists(Request):
         :param str folder_id: Folder id required for fetching list(s)
         """
         self.folder_id = folder_id
-        Request.__init__(self, url=f'folder/{self.folder_id}')
+        Request.__init__(self, url=f"folder/{self.folder_id}")
 
     def fetch_lists(self):
         """
@@ -222,7 +231,7 @@ class Lists(Request):
         """
         query = {"archived": "false"}
         response = self.fetch_response(params=query)
-        return self.valid_response(response, 'lists')
+        return self.valid_response(response, "lists")
 
 
 class List(Request):
@@ -237,7 +246,7 @@ class List(Request):
         :param str list_id: Folder id required for fetching list(s)
         """
         self.list_id = list_id
-        Request.__init__(self, url=f'list/{self.list_id}')
+        Request.__init__(self, url=f"list/{self.list_id}")
 
     def fetch_list(self):
         """
@@ -260,13 +269,13 @@ class ListFields(Request):
         :param str list_id: List id required for fetching field(s)
         """
         self.list_id = list_id
-        Request.__init__(self, url=f'list/{self.list_id}/field')
+        Request.__init__(self, url=f"list/{self.list_id}/field")
 
     def fetch_fields(self):
         """
         Fetching all Field(s) from Lists
         """
-        return self.valid_response(self.fetch_response(), 'fields')
+        return self.valid_response(self.fetch_response(), "fields")
 
 
 class ListComments(Request):
@@ -281,13 +290,13 @@ class ListComments(Request):
         :param str list_id: List id required for fetching comment(s)
         """
         self.list_id = list_id
-        Request.__init__(self, url=f'list/{self.list_id}/comment')
+        Request.__init__(self, url=f"list/{self.list_id}/comment")
 
     def fetch_comments(self):
         """
         Fetching all Comment(s) from Lists
         """
-        return self.valid_response(self.fetch_response(), 'comments')
+        return self.valid_response(self.fetch_response(), "comments")
 
 
 class Tasks(Request):
@@ -295,7 +304,7 @@ class Tasks(Request):
     Fetching Task(s) data
     """
 
-    def __init__(self, list_id, page_no='0'):
+    def __init__(self, list_id, page_no="0"):
         """
         Constructor for Tasks class
 
@@ -304,7 +313,10 @@ class Tasks(Request):
         """
         self.list_id = list_id
         self.page_no = page_no
-        Request.__init__(self, url=f'list/{self.list_id}/task?page={page_no}&subtasks=true&include_closed=true')
+        Request.__init__(
+            self,
+            url=f"list/{self.list_id}/task?page={page_no}&subtasks=true&include_closed=true",
+        )
 
     def fetch_tasks(self):
         """
@@ -312,7 +324,7 @@ class Tasks(Request):
         """
         query = {"custom_task_ids": "true", "include_subtasks": "true"}
         response = self.fetch_response(params=query)
-        return self.valid_response(response, 'tasks')
+        return self.valid_response(response, "tasks")
 
 
 class TaskComments(Request):
@@ -327,13 +339,13 @@ class TaskComments(Request):
         :param str task_id: Task id required for fetching comment(s)
         """
         self.task_id = task_id
-        Request.__init__(self, url=f'task/{self.task_id}/comment')
+        Request.__init__(self, url=f"task/{self.task_id}/comment")
 
     def fetch_comments(self):
         """
         Fetching all Comment(s) from Task(s)
         """
-        return self.valid_response(self.fetch_response(), 'comments')
+        return self.valid_response(self.fetch_response(), "comments")
 
 
 def append_row(response, record):
@@ -357,10 +369,10 @@ def append_row(response, record):
         row = DataFrame([row], columns=list(row.keys()))
         response = concat([response, row])
     except TypeError:
-        print('Attributes can only be lists.')
+        print("Attributes can only be lists.")
         exit()
     except ValueError:
-        print('Attribute values can only be strings.')
+        print("Attribute values can only be strings.")
         exit()
     return response
 
@@ -407,7 +419,7 @@ def fetch_folders(space_id, location):
     for folder_id in list_folders_data.index:
         location_in = create_location(location, folder_id)
         lists = fetch_lists(folder_id=folder_id, location=location_in)
-        write_to_excel(lists, location_in, 'info')
+        write_to_excel(lists, location_in, "info")
     return list_folders_data
 
 
@@ -423,7 +435,7 @@ def fetch_space_lists(space_id, location):
     for folder_id in list_folders_data.index:
         location_in = create_location(location, folder_id)
         tasks = fetch_tasks(list_id=folder_id, location=location_in)
-        write_to_excel(tasks, location_in, 'info')
+        write_to_excel(tasks, location_in, "info")
     return list_folders_data
 
 
@@ -439,10 +451,12 @@ def fetch_lists(folder_id, location):
     for list_id in list_data.index:
         location_in = create_location(location, list_id)
         with ThreadPoolExecutor() as execute:
-            result = [execute.submit(i, list_id) for i in
-                      [fetch_list, fetch_list_comments, fetch_list_fields]]
+            result = [
+                execute.submit(i, list_id)
+                for i in [fetch_list, fetch_list_comments, fetch_list_fields]
+            ]
             result.append(execute.submit(fetch_tasks, list_id, location_in))
-        for i, j in zip(result, ['information', 'comments', 'fields', 'info']):
+        for i, j in zip(result, ["information", "comments", "fields", "info"]):
             write_to_excel(i.result(), location_in, j)
     return list_data
 
@@ -493,7 +507,7 @@ def fetch_tasks(list_id, location):
         for task_id in tasks_data.index:
             location_in = create_location(location, task_id)
             task_comments = fetch_task_comments(task_id=task_id)
-            write_to_excel(task_comments, location_in, 'comments')
+            write_to_excel(task_comments, location_in, "comments")
         tasks_data_full = concat([tasks_data_full, tasks_data])
     return tasks_data_full
 
@@ -515,7 +529,7 @@ def create_location(location, name_id):
     :param str location: location where files are saved
     :param str name_id: id that will be used for making the structure
     """
-    location = location + '/' + name_id + '/'
+    location = location + "/" + name_id + "/"
     mkdir(location)
     return location
 
@@ -529,7 +543,7 @@ def write_to_excel(frame, location, name):
     :param str name: Name of the file
     """
     if not frame.empty:
-        write_in_excel(frame, location + name + '.xlsx', 'All Data', True)
+        write_in_excel(frame, location + name + ".xlsx", "All Data", True)
     return False
 
 
@@ -538,7 +552,10 @@ class Migrate2Excel(Teams):
     Migrating the whole Clickup Database into Excel
     """
 
-    def __init__(self, location, clickup_api_token=None, attribute_values=None):
+    def __init__(self,
+                 location,
+                 clickup_api_token=None,
+                 attribute_values=None):
         """
         Constructor for Request class
 
@@ -557,27 +574,30 @@ class Migrate2Excel(Teams):
         """
         Set some environment variables
         """
-        environ['clickup_api_token'] = self.clickup_api_token
+        environ["clickup_api_token"] = self.clickup_api_token
 
     def start(self):
         """
         Function that migrates the ClickUp data to Excel files
         """
         teams = self.fetch_all_teams()
-        write_to_excel(teams, self.location, 'info')
+        write_to_excel(teams, self.location, "info")
         start = perf_counter()
         for team_id in teams.index:
             location = create_location(self.location, team_id)
             spaces = fetch_spaces(team_id=team_id)
             goals = fetch_goals(team_id=team_id)
-            for i, j in zip([spaces, goals], ['info', 'goals']):
+            for i, j in zip([spaces, goals], ["info", "goals"]):
                 write_to_excel(i, location, j)
             for space_id in tqdm(spaces.index):
                 location_in = create_location(location, space_id)
                 with ThreadPoolExecutor() as execute:
-                    result = [execute.submit(i, space_id, location_in) for i in [fetch_folders, fetch_space_lists]]
+                    result = [
+                        execute.submit(i, space_id, location_in)
+                        for i in [fetch_folders, fetch_space_lists]
+                    ]
                     result.append(execute.submit(fetch_tags, space_id))
-                for i, j in zip(result, ['info', 'lists', 'Tags']):
+                for i, j in zip(result, ["info", "lists", "Tags"]):
                     write_to_excel(i.result(), location_in, j)
         end = perf_counter()
-        print(f'Finished in {round(end - start, 2)} second(s)')
+        print(f"Finished in {round(end - start, 2)} second(s)")
