@@ -1,4 +1,4 @@
-# GeneticTabler
+# ClickUp to Excel
 Replicate ClickUp Database using Excel.
 
 Developed by [Dipan Nanda](https://github.com/themagicalmammal) (c) 2023
