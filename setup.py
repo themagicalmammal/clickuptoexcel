@@ -20,15 +20,30 @@ setup(
     description=DESCRIPTION,
     long_description_content_type="text/markdown",
     long_description=LONG_DESCRIPTION,
+    # url="https://github.com/themagicalmammal/clickuptoexcel",
     packages=find_packages(),
+    include_package_data=True,
     install_requires=[],
+    project_urls={
+    # "Website": "https://github.com/themagicalmammal/clickuptoexcel",
+    # "Source code": "https://github.com/themagicalmammal/clickuptoexcel",
+    "Documentation":
+    "https://github.com/themagicalmammal/clickuptoexcel/blob/main/README.md",
+    "Bug tracker":
+    "https://github.com/themagicalmammal/clickuptoexcel/issues",
+    },
     keywords=["python", "ClickUp", "Excel", "pandas"],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: System Administrators",
         "Intended Audience :: Developers",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+        "Programming Language :: Python",
         "Programming Language :: Python :: 3",
         "Operating System :: Unix",
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: Microsoft :: Windows",
+        "Topic :: Utilities",
     ],
 )
