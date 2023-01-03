@@ -11,6 +11,9 @@ with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as fh:
 VERSION = "1.0.0"
 DESCRIPTION = "Replicate ClickUp Database using Excel."
 
+with open("requirements.txt") as f:
+    required = f.read().splitlines()
+
 # Setting up
 setup(
     name="clickuptoexcel",
@@ -23,7 +26,7 @@ setup(
     # url="https://github.com/themagicalmammal/clickuptoexcel",
     packages=find_packages(),
     include_package_data=True,
-    install_requires=[],
+    install_requires=required,
     project_urls={
         # "Website": "https://github.com/themagicalmammal/clickuptoexcel",
         # "Source code": "https://github.com/themagicalmammal/clickuptoexcel",
