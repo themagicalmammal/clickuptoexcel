@@ -4,9 +4,9 @@ Description: ClickUp API Data to Excel
 Written By: Dipan Nanda
 Date: December 2022
 """
+import sys
 from concurrent.futures import ThreadPoolExecutor
 from os import environ, getenv, mkdir
-from sys import exit
 from time import perf_counter
 
 from excel_write import write_in_excel
@@ -77,7 +77,7 @@ class Request:
                 responses.set_index(responses.columns[0], inplace=True)
             except KeyError:
                 print(error_string)
-                exit()
+                sys.exit()
         return responses
 
 
@@ -316,10 +316,10 @@ def append_row(response, record):
         response = concat([response, row])
     except TypeError:
         print("Attributes can only be lists.")
-        exit()
+        sys.exit()
     except ValueError:
         print("Attribute values can only be strings.")
-        exit()
+        sys.exit()
     return response
 
 
