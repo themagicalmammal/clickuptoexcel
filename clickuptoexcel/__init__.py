@@ -21,9 +21,7 @@ attributes = []
 
 
 class Request(object):
-    """
-    Generating Request(s) from Clickup
-    """
+    """Generating Request(s) from Clickup"""
 
     def __init__(self, url, headers=None):
         """
@@ -84,28 +82,20 @@ class Request(object):
 
 
 class Teams(Request):
-    """
-    Fetching Workspace(s) data
-    """
+    """Fetching Workspace(s) data"""
 
     def __init__(self):
-        """
-        Constructor for Teams class
-        """
+        """Constructor for Teams class"""
         Request.__init__(self, url="team")
 
     def fetch_all_teams(self):
-        """
-        Fetching all Workspace(s) data from Token
-        """
+        """Fetching all Workspace(s) data from Token"""
         return self.valid_response(self.fetch_response(), "teams",
                                    "Clickup API Token is invalid.")
 
 
 class Spaces(Request):
-    """
-    Fetching Space(s) data
-    """
+    """Fetching Space(s) data"""
 
     def __init__(self, team_id):
         """
@@ -117,16 +107,12 @@ class Spaces(Request):
         Request.__init__(self, url=f"team/{self.team_id}/space")
 
     def fetch_spaces(self):
-        """
-        Fetching all Space(s) data from Workspace
-        """
+        """Fetching all Space(s) data from Workspace"""
         return self.valid_response(self.fetch_response(), "spaces")
 
 
 class Goals(Request):
-    """
-    Fetching Goal(s) data
-    """
+    """Fetching Goal(s) data"""
 
     def __init__(self, team_id):
         """
@@ -138,16 +124,12 @@ class Goals(Request):
         Request.__init__(self, url=f"team/{self.team_id}/goal")
 
     def fetch_goals(self):
-        """
-        Fetching all Goal(s) data from Teams
-        """
+        """Fetching all Goal(s) data from Teams"""
         return self.valid_response(self.fetch_response(), "goals")
 
 
 class Tags(Request):
-    """
-    Fetching Tag(s) data
-    """
+    """Fetching Tag(s) data"""
 
     def __init__(self, space_id):
         """
@@ -159,16 +141,12 @@ class Tags(Request):
         Request.__init__(self, url=f"space/{self.space_id}/tag")
 
     def fetch_tags(self):
-        """
-        Fetching all Tag(s) data from Spaces
-        """
+        """Fetching all Tag(s) data from Spaces"""
         return self.valid_response(self.fetch_response(), "tags")
 
 
 class Folders(Request):
-    """
-    Fetching Folder(s) data
-    """
+    """Fetching Folder(s) data"""
 
     def __init__(self, space_id):
         """
@@ -180,18 +158,14 @@ class Folders(Request):
         Request.__init__(self, url=f"space/{self.space_id}/folder")
 
     def fetch_folders(self):
-        """
-        Fetching all Folder(s) data from Spaces
-        """
+        """Fetching all Folder(s) data from Spaces"""
         query = {"archived": "false"}
         response = self.fetch_response(params=query)
         return self.valid_response(response, "folders")
 
 
 class FolderLessLists(Request):
-    """
-    Fetching Folder Less List(s) data
-    """
+    """Fetching Folder Less List(s) data"""
 
     def __init__(self, space_id):
         """
@@ -203,18 +177,14 @@ class FolderLessLists(Request):
         Request.__init__(self, url=f"space/{self.space_id}/list")
 
     def fetch_folders_lists(self):
-        """
-        Fetching all Folder less List(s) from Spaces
-        """
+        """Fetching all Folder less List(s) from Spaces"""
         query = {"archived": "false"}
         response = self.fetch_response(params=query)
         return self.valid_response(response, "lists")
 
 
 class Lists(Request):
-    """
-    Fetching List(s) data
-    """
+    """Fetching List(s) data"""
 
     def __init__(self, folder_id):
         """
@@ -226,18 +196,14 @@ class Lists(Request):
         Request.__init__(self, url=f"folder/{self.folder_id}")
 
     def fetch_lists(self):
-        """
-        Fetching all List(s) from Folders
-        """
+        """Fetching all List(s) from Folders"""
         query = {"archived": "false"}
         response = self.fetch_response(params=query)
         return self.valid_response(response, "lists")
 
 
 class List(Request):
-    """
-    Fetching List(s) data
-    """
+    """Fetching List(s) data"""
 
     def __init__(self, list_id):
         """
@@ -249,18 +215,14 @@ class List(Request):
         Request.__init__(self, url=f"list/{self.list_id}")
 
     def fetch_list(self):
-        """
-        Fetching all List(s) from Folders
-        """
+        """Fetching all List(s) from Folders"""
         query = {"archived": "false"}
         response = self.fetch_response(params=query)
         return self.valid_response(response)
 
 
 class ListFields(Request):
-    """
-    Fetching Field(s) data
-    """
+    """Fetching Field(s) data"""
 
     def __init__(self, list_id):
         """
@@ -272,16 +234,12 @@ class ListFields(Request):
         Request.__init__(self, url=f"list/{self.list_id}/field")
 
     def fetch_fields(self):
-        """
-        Fetching all Field(s) from Lists
-        """
+        """Fetching all Field(s) from Lists"""
         return self.valid_response(self.fetch_response(), "fields")
 
 
 class ListComments(Request):
-    """
-    Fetching List Comment(s) data
-    """
+    """Fetching List Comment(s) data"""
 
     def __init__(self, list_id):
         """
@@ -293,16 +251,12 @@ class ListComments(Request):
         Request.__init__(self, url=f"list/{self.list_id}/comment")
 
     def fetch_comments(self):
-        """
-        Fetching all Comment(s) from Lists
-        """
+        """Fetching all Comment(s) from Lists"""
         return self.valid_response(self.fetch_response(), "comments")
 
 
 class Tasks(Request):
-    """
-    Fetching Task(s) data
-    """
+    """Fetching Task(s) data"""
 
     def __init__(self, list_id, page_no="0"):
         """
@@ -319,18 +273,14 @@ class Tasks(Request):
         )
 
     def fetch_tasks(self):
-        """
-        Fetching all Tasks(s) from Lists
-        """
+        """Fetching all Tasks(s) from Lists"""
         query = {"custom_task_ids": "true", "include_subtasks": "true"}
         response = self.fetch_response(params=query)
         return self.valid_response(response, "tasks")
 
 
 class TaskComments(Request):
-    """
-    Fetching comment(s) inside a Task
-    """
+    """Fetching comment(s) inside a Task"""
 
     def __init__(self, task_id):
         """
@@ -342,16 +292,12 @@ class TaskComments(Request):
         Request.__init__(self, url=f"task/{self.task_id}/comment")
 
     def fetch_comments(self):
-        """
-        Fetching all Comment(s) from Task(s)
-        """
+        """Fetching all Comment(s) from Task(s)"""
         return self.valid_response(self.fetch_response(), "comments")
 
 
 def append_row(response, record):
-    """
-    Adds a new row into the Dataframe
-    """
+    """Adds a new row into the Dataframe"""
     row = {}
     global attributes
     if attributes is None or len(attributes) == 0:
@@ -548,9 +494,7 @@ def write_to_excel(frame, location, name):
 
 
 class Migrate2Excel(Teams):
-    """
-    Migrating the whole Clickup Database into Excel
-    """
+    """Migrating the whole Clickup Database into Excel"""
 
     def __init__(self,
                  location,
@@ -571,15 +515,11 @@ class Migrate2Excel(Teams):
         Teams.__init__(self)
 
     def __set_environment__(self):
-        """
-        Set some environment variables
-        """
+        """Set some environment variables"""
         environ["clickup_api_token"] = self.clickup_api_token
 
     def start(self):
-        """
-        Function that migrates the ClickUp data to Excel files
-        """
+        """Function that migrates the ClickUp data to Excel files"""
         teams = self.fetch_all_teams()
         write_to_excel(teams, self.location, "info")
         start = perf_counter()
