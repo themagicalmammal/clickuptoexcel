@@ -1,4 +1,7 @@
 # ClickUp to Excel
+[![DeepSource](https://deepsource.io/gh/themagicalmammal/clickuptoexcel.svg/?label=active+issues&show_trend=true&token=opRzze8gP9JJbKX_SR5u4zfF)](https://deepsource.io/gh/themagicalmammal/clickuptoexcel/?ref=repository-badge)
+[![DeepSource](https://deepsource.io/gh/themagicalmammal/clickuptoexcel.svg/?label=resolved+issues&show_trend=true&token=opRzze8gP9JJbKX_SR5u4zfF)](https://deepsource.io/gh/themagicalmammal/clickuptoexcel/?ref=repository-badge)
+
 Replicate ClickUp Database using Excel.
 
 Developed by [Dipan Nanda](https://github.com/themagicalmammal) (c) 2023
