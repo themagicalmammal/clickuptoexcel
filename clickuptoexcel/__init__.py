@@ -299,7 +299,6 @@ class TaskComments(Request):
 def append_row(response, record):
     """Adds a new row into the Dataframe"""
     row = {}
-    global attributes
     if attributes is None or len(attributes) == 0:
         attribute = list(record.keys())
     else:
