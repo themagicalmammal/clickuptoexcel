@@ -20,7 +20,7 @@ attributes = []
 ":param list attributes: List of keys that would be kept in excels."
 
 
-class Request(object):
+class Request:
     """Generating Request(s) from Clickup"""
 
     def __init__(self, url, headers=None):
