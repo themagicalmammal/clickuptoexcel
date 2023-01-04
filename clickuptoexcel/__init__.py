@@ -484,7 +484,7 @@ def write_to_excel(frame, location, name):
     """
     Function for fetching comments inside a task
 
-    :param DataFrame frame: dataframe that will be put inside excel file
+    :param DataFrame frame: dataframe that will be put inside Excel file
     :param str location: location where files are saved
     :param str name: Name of the file
     """
