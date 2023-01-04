@@ -268,9 +268,9 @@ class Tasks(Request):
         self.list_id = list_id
         self.page_no = page_no
         Request.__init__(
-            self, 
-            url=f'list/{self.list_id}/task?page={page_no}'
-                f'&subtasks=true&include_closed=true'
+            self,
+            url=f"list/{self.list_id}/task?page={page_no}"
+            f"&subtasks=true&include_closed=true",
         )
 
     def fetch_tasks(self):
