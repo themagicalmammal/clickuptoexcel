@@ -6,6 +6,7 @@ Date: December 2022
 """
 from concurrent.futures import ThreadPoolExecutor
 from os import environ, getenv, mkdir
+from sys import exit
 from time import perf_counter
 
 from excel_write import write_in_excel
@@ -269,7 +270,7 @@ class Tasks(Request):
         Request.__init__(
             self, 
             url=f'list/{self.list_id}/task?page={page_no}'
-            f'&subtasks=true&include_closed=true')
+                f'&subtasks=true&include_closed=true'
         )
 
     def fetch_tasks(self):
