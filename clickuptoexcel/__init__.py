@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-"""
-Description: ClickUp API Data to Excel
-Written By: Dipan Nanda
-Date: December 2022
-"""
+"""ClickUp API Data to Excel"""
 import sys
 from concurrent.futures import ThreadPoolExecutor
 from os import environ, getenv, mkdir
